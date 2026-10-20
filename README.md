@@ -11,9 +11,11 @@ Voraussetzungen: [Node.js LTS](https://nodejs.org), [Git](https://git-scm.com/do
 ```powershell
 git clone https://github.com/lLowman97/train.git
 cd train
-npm install
+npm ci
 npx expo start
 ```
+
+Zum Aktualisieren: `git pull`, dann `npm ci` und `npx expo start`. `npm ci` statt `npm install` verwenden, damit `package-lock.json` unverändert bleibt.
 
 QR-Code scannen: unter iOS mit der Kamera-App, unter Android in Expo Go. PC und Handy müssen im selben WLAN sein, sonst `npx expo start --tunnel` verwenden.
 
@@ -27,7 +29,7 @@ Die Dateien in `supabase/migrations/` der Reihe nach im Supabase-Dashboard ausf�
 - [ ] Phase 1: Login, Übungskatalog, JSON-Import, Training erfassen
   - [x] Datenbank, Übungskatalog, Registrierung und Login
   - [x] JSON-Import mit Vorschau, Prompt für KI und Archivieren
-  - [ ] Training erfassen
+  - [x] Training erfassen mit Vorwerten, Aufwärmsätzen und Übungstausch
 - [ ] Phase 2: Statistiken
 - [ ] Phase 3: Körpergewicht und Maße
 - [ ] Phase 4: Freunde

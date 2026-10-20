@@ -19,6 +19,7 @@ Der Entwickler hat kaum Programmiererfahrung: Änderungen in kleinen Schritten u
 - Gewichte in kg, Dezimalstellen erlaubt
 - Aufwärmsätze (`is_warmup`) zählen in keiner Statistik
 - Pläne werden archiviert, nie gelöscht; Workouts bleiben immer erhalten
+- Laufendes Training liegt nur lokal (`src/lib/active-workout.tsx`) und wird erst beim Abschließen gespeichert; nur bestätigte Sätze zählen
 
 ## Befehle
 

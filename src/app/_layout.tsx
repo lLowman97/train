@@ -3,6 +3,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useColorScheme } from 'react-native';
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
+import { ActiveWorkoutProvider } from '@/lib/active-workout';
 import { SessionProvider, useSession } from '@/lib/session';
 
 SplashScreen.preventAutoHideAsync();
@@ -12,8 +13,10 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <SessionProvider>
-        <RootNavigator />
-        <AnimatedSplashOverlay />
+        <ActiveWorkoutProvider>
+          <RootNavigator />
+          <AnimatedSplashOverlay />
+        </ActiveWorkoutProvider>
       </SessionProvider>
     </ThemeProvider>
   );
@@ -36,6 +39,14 @@ function RootNavigator() {
         <Stack.Screen
           name="plan/[id]"
           options={{ headerShown: true, title: 'Plan', headerBackTitle: 'Pläne' }}
+        />
+        <Stack.Screen
+          name="workout"
+          options={{ headerShown: true, title: 'Training', headerBackTitle: 'Heute' }}
+        />
+        <Stack.Screen
+          name="exercise-picker"
+          options={{ headerShown: true, title: 'Übung wählen', presentation: 'modal' }}
         />
       </Stack.Protected>
       <Stack.Protected guard={!session}>

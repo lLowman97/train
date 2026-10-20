@@ -1,3 +1,4 @@
+import type { PropsWithChildren } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -5,15 +6,15 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 
-type ScreenPlaceholderProps = {
+type ScreenPlaceholderProps = PropsWithChildren<{
   title: string;
   subtitle: string;
   /** Geplante Funktionen laut docs/konzept.md */
   planned: string[];
-};
+}>;
 
 /** Platzhalter für Screens, die noch nicht umgesetzt sind. */
-export function ScreenPlaceholder({ title, subtitle, planned }: ScreenPlaceholderProps) {
+export function ScreenPlaceholder({ title, subtitle, planned, children }: ScreenPlaceholderProps) {
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
@@ -31,6 +32,8 @@ export function ScreenPlaceholder({ title, subtitle, planned }: ScreenPlaceholde
               </ThemedText>
             ))}
           </ThemedView>
+
+          {children}
         </ScrollView>
       </SafeAreaView>
     </ThemedView>

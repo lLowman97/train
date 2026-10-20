@@ -7,7 +7,8 @@ Der Entwickler hat kaum Programmiererfahrung: Änderungen in kleinen Schritten u
 ## Stack
 
 - Expo (SDK siehe `package.json`) mit Expo Router und TypeScript, getestet über Expo Go
-- Supabase für Login, Datenbank und Row Level Security (noch nicht eingebunden)
+- Supabase für Login, Datenbank und Row Level Security. Client in `src/lib/supabase.ts`, Session über `useSession()` aus `src/lib/session.tsx`
+- Datenbank-Änderungen als neue, fortlaufend nummerierte Datei in `supabase/migrations/` anlegen. Der Entwickler führt sie im Supabase SQL Editor aus, bestehende Migrationen nie nachträglich ändern
 - Nur Bibliotheken verwenden, die in Expo Go laufen, solange kein Development Build eingerichtet ist
 
 ## Konventionen

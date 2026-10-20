@@ -17,10 +17,17 @@ npx expo start
 
 QR-Code scannen: unter iOS mit der Kamera-App, unter Android in Expo Go. PC und Handy müssen im selben WLAN sein, sonst `npx expo start --tunnel` verwenden.
 
+## Datenbank einrichten
+
+Die Dateien in `supabase/migrations/` der Reihe nach im Supabase-Dashboard ausführen: **SQL Editor → New query →** Inhalt einfügen **→ Run**.
+
 ## Stand
 
 - [x] Phase 0: Projekt-Setup mit fünf Tabs (Heute, Pläne, Fortschritt, Körper, Freunde)
 - [ ] Phase 1: Login, Übungskatalog, JSON-Import, Training erfassen
+  - [x] Datenbank, Übungskatalog, Registrierung und Login
+  - [ ] JSON-Import
+  - [ ] Training erfassen
 - [ ] Phase 2: Statistiken
 - [ ] Phase 3: Körpergewicht und Maße
 - [ ] Phase 4: Freunde

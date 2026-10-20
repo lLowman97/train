@@ -29,6 +29,14 @@ function RootNavigator() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Protected guard={!!session}>
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="plan-import"
+          options={{ headerShown: true, title: 'Plan importieren', presentation: 'modal' }}
+        />
+        <Stack.Screen
+          name="plan/[id]"
+          options={{ headerShown: true, title: 'Plan', headerBackTitle: 'Pläne' }}
+        />
       </Stack.Protected>
       <Stack.Protected guard={!session}>
         <Stack.Screen name="login" />

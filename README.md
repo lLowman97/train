@@ -26,7 +26,7 @@ Die Dateien in `supabase/migrations/` der Reihe nach im Supabase-Dashboard ausf�
 - [x] Phase 0: Projekt-Setup mit fünf Tabs (Heute, Pläne, Fortschritt, Körper, Freunde)
 - [ ] Phase 1: Login, Übungskatalog, JSON-Import, Training erfassen
   - [x] Datenbank, Übungskatalog, Registrierung und Login
-  - [ ] JSON-Import
+  - [x] JSON-Import mit Vorschau, Prompt für KI und Archivieren
   - [ ] Training erfassen
 - [ ] Phase 2: Statistiken
 - [ ] Phase 3: Körpergewicht und Maße

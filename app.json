@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "train-app",
-    "slug": "train-app",
+    "name": "train",
+    "slug": "train",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "trainapp",
-    "userInterfaceStyle": "automatic",
+    "scheme": "train",
+    "userInterfaceStyle": "dark",
     "ios": {
       "icon": "./assets/expo.icon"
     },

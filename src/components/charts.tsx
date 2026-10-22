@@ -106,10 +106,16 @@ export function LineChart({
   data,
   format,
   height = 160,
+  secondary,
+  detail,
 }: {
   data: ChartPoint[];
   format: (value: number) => string;
   height?: number;
+  /** Optional raw values drawn as small hollow dots behind the line (e.g. daily weigh-ins). */
+  secondary?: (number | null)[];
+  /** Extra text for the readout of the selected point. */
+  detail?: (index: number) => string;
 }) {
   const theme = useTheme();
   const { width, onLayout } = useWidth();
@@ -117,7 +123,7 @@ export function LineChart({
   const index = selected ?? data.length - 1;
 
   const pad = 8; // keeps markers inside the plot
-  const values = data.map((d) => d.value);
+  const values = [...data.map((d) => d.value), ...(secondary ?? []).filter((v): v is number => v !== null)];
   const rawMin = Math.min(...values);
   const rawMax = Math.max(...values);
   const spread = rawMax - rawMin || Math.max(rawMax * 0.1, 1);
@@ -139,7 +145,12 @@ export function LineChart({
 
   return (
     <View style={styles.chart}>
-      {data[index] && <Readout label={data[index].label} value={format(data[index].value)} />}
+      {data[index] && (
+        <Readout
+          label={detail ? `${data[index].label} · ${detail(index)}` : data[index].label}
+          value={format(data[index].value)}
+        />
+      )}
       <Pressable onLayout={onLayout} onPress={(e) => select(e.nativeEvent.locationX)}>
         <Svg width={width} height={height}>
           {[0.25, 0.75].map((f) => (
@@ -164,10 +175,16 @@ export function LineChart({
               strokeDasharray="3,3"
             />
           )}
+          {secondary?.map((v, i) =>
+            v === null ? null : (
+              <Circle key={`s${i}`} cx={x(i)} cy={y(v)} r={3} fill="none" stroke={theme.textSecondary} strokeWidth={1.5} />
+            ),
+          )}
           {data.length > 1 && (
             <Path d={path} stroke={theme.accent} strokeWidth={2} fill="none" strokeLinejoin="round" />
           )}
           {data.length <= 40 &&
+            !secondary &&
             data.map((d, i) => (
               <Circle key={i} cx={x(i)} cy={y(d.value)} r={4} fill={theme.accent} />
             ))}

@@ -9,6 +9,7 @@ import {
   type PropsWithChildren,
 } from 'react';
 
+import { fetchWorkoutRecords, type NewRecord } from '@/lib/stats';
 import {
   fetchLastExerciseSets,
   fetchLastPlanDaySets,
@@ -52,6 +53,7 @@ export type WorkoutSummary = {
   minutes: number;
   sets: number;
   volumeKg: number;
+  records: NewRecord[];
 };
 
 type ExerciseChoice = { id: string; name: string };
@@ -276,7 +278,7 @@ export function ActiveWorkoutProvider({ children }: PropsWithChildren) {
     }
 
     const finishedAt = new Date();
-    await saveWorkout({
+    const workoutId = await saveWorkout({
       plan_day_id: workout.planDayId,
       started_at: workout.startedAt,
       finished_at: finishedAt.toISOString(),
@@ -284,11 +286,14 @@ export function ActiveWorkoutProvider({ children }: PropsWithChildren) {
     });
     setWorkout(null);
 
+    // A failing record lookup must not hide that the workout was saved.
+    const records = await fetchWorkoutRecords(workoutId).catch(() => []);
     const working = sets.filter((s) => !s.is_warmup);
     return {
       minutes: Math.round((finishedAt.getTime() - new Date(workout.startedAt).getTime()) / 60000),
       sets: working.length,
       volumeKg: Math.round(working.reduce((sum, s) => sum + s.weight_kg * s.reps, 0)),
+      records,
     };
   }, [workout]);
 

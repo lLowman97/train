@@ -45,6 +45,10 @@ function RootNavigator() {
           options={{ headerShown: true, title: 'Training', headerBackTitle: 'Heute' }}
         />
         <Stack.Screen
+          name="exercise/[id]"
+          options={{ headerShown: true, title: 'Verlauf', headerBackTitle: 'Fortschritt' }}
+        />
+        <Stack.Screen
           name="exercise-picker"
           options={{ headerShown: true, title: 'Übung wählen', presentation: 'modal' }}
         />

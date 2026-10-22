@@ -22,6 +22,7 @@ import {
   type WorkoutExercise,
   type WorkoutSet,
 } from '@/lib/active-workout';
+import { formatKg } from '@/lib/stats';
 
 function useElapsedMinutes(startedAt: string | undefined) {
   const [now, setNow] = useState(Date.now());
@@ -50,9 +51,16 @@ export default function WorkoutScreen() {
     setSaving(true);
     try {
       const summary = await finish();
+      const records = summary.records.map(
+        (r) =>
+          `🏆 ${r.name}: ${r.kind === 'weight' ? 'Max. Gewicht' : 'Geschätztes 1RM'} ${formatKg(r.value)} (vorher ${formatKg(r.previous)})`,
+      );
       Alert.alert(
-        'Training gespeichert 💪',
-        `${summary.minutes} min · ${summary.sets} Arbeitssätze · ${summary.volumeKg.toLocaleString('de-DE')} kg Volumen`,
+        records.length > 0 ? 'Neue Rekorde! 🏆' : 'Training gespeichert 💪',
+        [
+          `${summary.minutes} min · ${summary.sets} Arbeitssätze · ${summary.volumeKg.toLocaleString('de-DE')} kg Volumen`,
+          ...records,
+        ].join('\n\n'),
       );
       router.back();
     } catch (e) {

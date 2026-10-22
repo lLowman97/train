@@ -9,6 +9,7 @@ export type PlanSummary = {
   description: string | null;
   status: PlanStatus;
   dayCount: number;
+  sharedBy: string | null;
 };
 
 export type PlanDetail = {
@@ -37,7 +38,7 @@ export async function fetchExercises(): Promise<CatalogExercise[]> {
 export async function fetchPlans(): Promise<PlanSummary[]> {
   const { data, error } = await supabase
     .from('plans')
-    .select('id, name, description, status, plan_days(count)')
+    .select('id, name, description, status, plan_days(count), sharer:profiles!plans_shared_by_fkey(username)')
     .order('created_at', { ascending: false });
   if (error) throw error;
   return data.map((plan) => ({
@@ -46,6 +47,7 @@ export async function fetchPlans(): Promise<PlanSummary[]> {
     description: plan.description,
     status: plan.status,
     dayCount: plan.plan_days[0]?.count ?? 0,
+    sharedBy: (plan.sharer as unknown as { username: string } | null)?.username ?? null,
   }));
 }
 

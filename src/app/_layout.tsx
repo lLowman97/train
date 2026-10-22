@@ -48,6 +48,12 @@ function RootNavigator() {
           name="exercise/[id]"
           options={{ headerShown: true, title: 'Verlauf', headerBackTitle: 'Fortschritt' }}
         />
+        <Stack.Screen name="profil" options={{ headerShown: true, title: 'Profil' }} />
+        <Stack.Screen name="friend/[id]" options={{ headerShown: true, title: 'Freund' }} />
+        <Stack.Screen
+          name="plan-share"
+          options={{ headerShown: true, title: 'Plan teilen', presentation: 'modal' }}
+        />
         <Stack.Screen
           name="exercise-picker"
           options={{ headerShown: true, title: 'Übung wählen', presentation: 'modal' }}

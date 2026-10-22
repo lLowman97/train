@@ -117,6 +117,7 @@ function PlanList({ title, plans }: { title: string; plans: PlanSummary[] }) {
               <ThemedText type="smallBold">{plan.name}</ThemedText>
               <ThemedText type="small" themeColor="textSecondary">
                 {plan.dayCount} {plan.dayCount === 1 ? 'Trainingstag' : 'Trainingstage'}
+                {plan.sharedBy ? ` · von @${plan.sharedBy}` : ''}
                 {plan.description ? ` · ${plan.description}` : ''}
               </ThemedText>
             </ThemedView>

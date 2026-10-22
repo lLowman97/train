@@ -1,6 +1,6 @@
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/button';
@@ -10,7 +10,6 @@ import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import { useActiveWorkout } from '@/lib/active-workout';
 import { WEEKDAY_NAMES } from '@/lib/plan-format';
 import { useSession } from '@/lib/session';
-import { supabase } from '@/lib/supabase';
 import { countWorkoutsThisWeek, fetchActivePlanDays, type PlanDayOption } from '@/lib/workouts';
 
 function todayWeekday() {
@@ -19,7 +18,7 @@ function todayWeekday() {
 
 export default function HeuteScreen() {
   const { session } = useSession();
-  const { workout, start, discard } = useActiveWorkout();
+  const { workout, start } = useActiveWorkout();
   const username = session?.user.user_metadata.username as string | undefined;
 
   const [days, setDays] = useState<PlanDayOption[] | null>(null);
@@ -51,20 +50,6 @@ export default function HeuteScreen() {
     }
   }
 
-  function signOut() {
-    Alert.alert('Abmelden?', workout ? 'Dein laufendes Training wird dabei verworfen.' : undefined, [
-      { text: 'Abbrechen', style: 'cancel' },
-      {
-        text: 'Abmelden',
-        style: 'destructive',
-        onPress: () => {
-          discard();
-          supabase.auth.signOut();
-        },
-      },
-    ]);
-  }
-
   const today = todayWeekday();
   const todays = days?.filter((d) => d.weekday === today) ?? [];
   const others = days?.filter((d) => d.weekday !== today) ?? [];
@@ -74,7 +59,14 @@ export default function HeuteScreen() {
       <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
         <ScrollView contentContainerStyle={styles.content}>
           <ThemedView style={styles.header}>
-            <ThemedText type="subtitle">Heute</ThemedText>
+            <View style={styles.titleRow}>
+              <ThemedText type="subtitle">Heute</ThemedText>
+              <Pressable onPress={() => router.push('/profil')} hitSlop={8}>
+                <ThemedText type="small" themeColor="accent">
+                  Profil
+                </ThemedText>
+              </Pressable>
+            </View>
             <ThemedText themeColor="textSecondary">
               {username ? `Hi @${username}` : 'Hi'}
               {weekCount !== null &&
@@ -168,13 +160,6 @@ export default function HeuteScreen() {
               />
             </>
           )}
-
-          {/* Temporary until the profile screen exists. */}
-          <Pressable onPress={signOut} style={({ pressed }) => [styles.signOut, pressed && styles.pressed]}>
-            <ThemedText type="small" themeColor="textSecondary">
-              Abmelden
-            </ThemedText>
-          </Pressable>
         </ScrollView>
       </SafeAreaView>
     </ThemedView>
@@ -196,6 +181,11 @@ const styles = StyleSheet.create({
   header: {
     gap: Spacing.one,
   },
+  titleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   card: {
     gap: Spacing.two,
     padding: Spacing.three,
@@ -214,10 +204,6 @@ const styles = StyleSheet.create({
   rowText: {
     flex: 1,
     gap: Spacing.half,
-  },
-  signOut: {
-    alignItems: 'center',
-    padding: Spacing.three,
   },
   pressed: {
     opacity: 0.7,

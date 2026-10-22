@@ -32,4 +32,4 @@ Die Dateien in `supabase/migrations/` der Reihe nach im Supabase-Dashboard ausf�
   - [x] Training erfassen mit Vorwerten, Aufwärmsätzen und Übungstausch
 - [x] Phase 2: Statistiken (Rekorde, Verlauf pro Übung, Volumen, Muskelgruppen, Trainingskalender)
 - [x] Phase 3: Körpergewicht mit Ø 7 Tage, Zielgewicht, Körpermaße und KFA
-- [ ] Phase 4: Freunde
+- [x] Phase 4: Freunde (Anfragen, Feed, Freundesprofile, Pläne teilen, Privatsphäre)

@@ -19,6 +19,7 @@ Der Entwickler hat kaum Programmiererfahrung: Änderungen in kleinen Schritten u
 - Gewichte in kg, Dezimalstellen erlaubt
 - Aufwärmsätze (`is_warmup`) zählen in keiner Statistik
 - Pläne werden archiviert, nie gelöscht; Workouts bleiben immer erhalten
+- Freunde lesen fremde Daten nie direkt per RLS, sondern nur über die security-definer-Funktionen aus `0005_friends.sql`, die Freundschaft und `privacy_*` prüfen
 - Laufendes Training liegt nur lokal (`src/lib/active-workout.tsx`) und wird erst beim Abschließen gespeichert; nur bestätigte Sätze zählen
 
 ## Befehle

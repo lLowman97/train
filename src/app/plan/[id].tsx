@@ -1,4 +1,4 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
 
@@ -83,6 +83,13 @@ export default function PlanDetailScreen() {
               </ThemedView>
             ))}
 
+            <Button
+              title="Mit Freund teilen"
+              variant="secondary"
+              onPress={() =>
+                router.push({ pathname: '/plan-share', params: { id: plan.id, name: plan.name } })
+              }
+            />
             <Button
               title={plan.status === 'active' ? 'Plan archivieren' : 'Plan wieder aktivieren'}
               variant={plan.status === 'active' ? 'secondary' : 'primary'}

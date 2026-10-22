@@ -33,3 +33,21 @@ Die Dateien in `supabase/migrations/` der Reihe nach im Supabase-Dashboard ausf�
 - [x] Phase 2: Statistiken (Rekorde, Verlauf pro Übung, Volumen, Muskelgruppen, Trainingskalender)
 - [x] Phase 3: Körpergewicht mit Ø 7 Tage, Zielgewicht, Körpermaße und KFA
 - [x] Phase 4: Freunde (Anfragen, Feed, Freundesprofile, Pläne teilen, Privatsphäre)
+
+## Für Freunde veröffentlichen (EAS Update)
+
+Einmalig: Konto auf [expo.dev](https://expo.dev) anlegen, dann
+
+```powershell
+npx eas-cli@latest login
+npx eas-cli@latest init
+npx eas-cli@latest update:configure
+```
+
+Neue Version veröffentlichen:
+
+```powershell
+npx eas-cli@latest update --branch main --message "Kurze Beschreibung"
+```
+
+Den Link bzw. QR-Code zur Version gibt es auf expo.dev unter dem Projekt → Updates. Freunde öffnen ihn in Expo Go.

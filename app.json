@@ -2,6 +2,7 @@
   "expo": {
     "name": "train",
     "slug": "train",
+    "owner": "llowmans-team",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
